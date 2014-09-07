@@ -10,6 +10,7 @@ Tomaremos como ejemplo la *búsqueda secuencial* que es un algoritmo muy conocid
 
 Un ejemplo en código es muy sencillo:
 
+#### ObtenerPosicion(arreglo, valorBuscado)
 ```
 public int ObtenerPosicion(int[] arreglo, int valorBuscado){
 
@@ -31,7 +32,7 @@ Si agregamos el método a una clase y hacemos pruebas sencillas podemos ver que 
 ```
 var arreglo = new int[]{ 2, 5, 7 };
 var pos = ObtenerPosicion(arreglo, 5);
-Console.WriteLine(pos);`
+Console.WriteLine(pos);
 
 ```
 Ejecutando el código anterior la consola imprimirá 1 ya que es la posición del número 5, si en vez de 5 el segundo parámetro fuera 2, el resultado sería 0 y si el elemento a buscar no se encuentra en el arreglo la consola imprimirá -1.
