@@ -4,42 +4,90 @@ Cuando se habla de rendimiento (performance) en el mundo de la informática se h
 
 Un buen programador debe ser responsable del performance de su código, no basta con escribir 5 o 10 lineas y probar que funcionan localmente en un ordenador o en un ambiente de pruebas por que no es lo mismo que un usuario ejecute un programa una o dos veces a que mil usuarios lo hagan un millón de veces, otro ejemplo es la gran diferencia entre trabajar con un arreglo (array) de 100 elementos a trabajar con uno de 100,000 o hacer una consulta a una tabla de 100 registros y luego hacer la misma consulta cuando la tabla tiene un millón de filas.
 
-Por lo general en lenguajes de programación de alto nivel vienen incluidas clases y funciones para medir tiempos de ejecución como mostraré en un ejemplo que explico a continuación.
+Por lo general en lenguajes de programación de alto nivel vienen incluidas clases y funciones para medir tiempos de ejecución pero antes de llegar a ese punto vamos a definir un método al que le realizaremos algunas pruebas.
 
-Tomaremos como ejemplo la *búsqueda secuencial* que es un algoritmo muy conocido pero no es popular por su eficiencia, al contrario es muy lento cuanto se trata de trabajar con grandes cantidades de datos, este algoritmo recorre una lista buscando un elemento con cierto criterio hasta encontrarlo o recorrer toda la lista.
+Tomaremos como ejemplo el ***método de la burbuja*** (bubble sort) que es un algoritmo de ordenamiento que probablemente lo hayas visto en clase de programación, aunque muy conocido no es popular por su eficiencia, al contrario es muy lento cuanto se trata de trabajar con grandes cantidades de datos, este algoritmo recorre una lista *N* veces donde *N* es el tamaño de la lista (o arreglo) y va acomodando cada elemento de menor a mayor hasta dejarlos todos ordenados de forma ascendente (también puede aplicarse de forma descendente).
 
-Un ejemplo en código es muy sencillo:
+Un ejemplo muy sencillo en código:
 
-#### ObtenerPosicion(arreglo, valorBuscado)
+#### Burbuja(arreglo)
 ```
-public int ObtenerPosicion(int[] arreglo, int valorBuscado){
-
-        for(int x=0; x < arreglo.Length; x++){
-            if(arreglo[x] == valorBuscado){
-                return x;
-            }
-        }
-
-        return -1;
-    }
-
-```
-
-El método **ObtenerPosicion** recibe dos parámetros; el arreglo en el que se realizará la busqueda y el elemento a buscar, en este caso lo que queremos saber es la posición del elemento, si éste se encuentra devolvemos el indice, en caso contrario -1.
-
-Si agregamos el método a una clase y hacemos pruebas sencillas podemos ver que funciona:
-
-```
-var arreglo = new int[]{ 2, 5, 7 };
-var pos = ObtenerPosicion(arreglo, 5);
-Console.WriteLine(pos);
+public static int[] Burbuja(int[] arreglo)
+{
+	for (var i = 0; i < arreglo.Length; i++)
+	{
+		for (var j = 0; j < arreglo.Length - 1; j++)
+		{
+			if (arreglo[j] > arreglo[j + 1])
+			{
+				var temp = arreglo[j + 1];
+				arreglo[j + 1] = arreglo[j];
+				arreglo[j] = temp;
+			}
+		}
+	}
+	return arreglo;
+}
 
 ```
-Ejecutando el código anterior la consola imprimirá 1 ya que es la posición del número 5, si en vez de 5 el segundo parámetro fuera 2, el resultado sería 0 y si el elemento a buscar no se encuentra en el arreglo la consola imprimirá -1.
 
-Nuestro algoritmo funciona, nuestro programa parece estar listo, sin embargo hay varias preguntas que debes de comenzar a plantearte si quieres que tus lineas sean consideradas "código para ambiente de producción", te ayudo a pensar en algunas:
+El método **Burbuja** recibe un parámetro que es el arreglo a ordenar y devuelve el mismo ya ordenado, el funcionamiento es el siguiente.
 
-¿El método **ObtenerPosicion** funciona si el arreglo tiene un millon de elementos?
+Si aplicamos la burbuja a la lista [5,3,2] cada iteración haría los siguientes cambios:
+
+1. [3,2,5]
+2. [2,3,5]
+3. [2,3,5]
+
+Si observas la iteración 2 y 3 son iguales, este algoritmo puede llegar a hacer muchas iteraciones innecesarias pero este problema lo analizaremos mas adelante, si no has visto antes este algoritmo te pido de favor lo analices con mucha atención hasta entender como funciona y tener bien claro el código para seguir con el resto del capítulo, te comparto el código completo que puedes escribir en una aplicación de consola y lo pruebes por ti mismo.
+
+```
+using System;
+
+namespace Pruebas
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var arreglo = new int[] { 5, 3, 2 };
+
+			Burbuja(arreglo);
+
+			Console.WriteLine(String.Join(",", arreglo));
+			Console.ReadLine();
+		}
+
+		public static int[] Burbuja(int[] arreglo)
+		{
+			for (var i = 0; i < arreglo.Length; i++)
+			{
+				for (var j = 0; j < arreglo.Length - 1; j++)
+				{
+					if (arreglo[j] > arreglo[j + 1])
+					{
+						var temp = arreglo[j + 1];
+						arreglo[j + 1] = arreglo[j];
+						arreglo[j] = temp;
+					}
+				}
+			}
+			return arreglo;
+		}
+	}
+}
+
+```
+
+Prueba utilizando arreglos con diferente número de elementos.
+
+###### Nota: String.Join(separador, arreglo) sirve para concatenar los elementos de un arreglo en un string separando cada uno por el separador especificado, en el ejemplo se separan por coma.
+
+Ejecutando el código anterior la consola imprimirá los elementos ordenados de forma ascendente separados por coma (2,3,5).
+
+El algoritmo funciona, nuestro programa parece estar listo, sin embargo hay varias preguntas que debes de comenzar a plantearte si quieres que tus lineas sean consideradas "código para ambiente de producción", te ayudo a pensar en algunas:
+
+¿El método **Burbuja** funciona si el arreglo tiene un millon de elementos?
 
 ¿Qué tan rápido funciona nuestro algoritmo?
 
@@ -51,4 +99,4 @@ Nuestro algoritmo funciona, nuestro programa parece estar listo, sin embargo hay
 
 ¿Que debo hacer si se genera algún error en mi método?
 
-Puede haber muchas más preguntas pero no te preocupes, llegando a cierto punto de maduración como programador estas preguntas se procesan más rápido en tu mente logrando prevenir errores o bajo performance automaticamente, en el siguiente capítulo haremos algunas pruebas de nuestro método **ObtenerPosicion**, si no te ha quedado claro el código te recomiendo leerlo y tratar de entenderlo para continuar con los ejemplos.
+Puede haber muchas más preguntas pero no te preocupes, llegando a cierto punto de maduración como programador estas preguntas se procesan más rápido en tu mente logrando prevenir errores o bajo performance automaticamente, en el siguiente capítulo haremos algunas pruebas de nuestro método **Burbuja**.
