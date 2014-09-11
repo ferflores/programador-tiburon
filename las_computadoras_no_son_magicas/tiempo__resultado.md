@@ -27,7 +27,7 @@ static void Main(string[] args)
 	var stopwatch = new Stopwatch();
 	stopwatch.Start();
 
-	var arreglo = new int[] { 5, 3, 2};
+	var arreglo = new int[] { 5, 3, 2 };
 
 	Burbuja(arreglo);
 
