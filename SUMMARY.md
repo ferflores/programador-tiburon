@@ -10,4 +10,7 @@
    * [Resultado / Tiempo](las_computadoras_no_son_magicas/tiempo__resultado.md)
    * [Prueba de estrés](las_computadoras_no_son_magicas/una_prueba_de_estres.md)
    * [Una mejor solución](las_computadoras_no_son_magicas/una_mejor_solucion.md)
+   * [Conclusiones](las_computadoras_no_son_magicas/conclusiones.md)
+* [Notes](notes/README)
+   * [Notes](notes/notes.md)
 
