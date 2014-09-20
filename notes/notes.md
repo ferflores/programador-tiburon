@@ -11,3 +11,5 @@ Es muy fácil perder reputación de buen programador, cuando cometes errores peq
 **Hashing**
 
 ** Ejemplo de analisis, pensar en todo, una red social **
+
+*** La voz de la experiencia ***
