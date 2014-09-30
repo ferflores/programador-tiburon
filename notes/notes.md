@@ -15,3 +15,5 @@ Es muy fácil perder reputación de buen programador, cuando cometes errores peq
 *** La voz de la experiencia ***
 
 *** Programador integro ***
+
+*** Incluir consejos de 97 things developers should know, libro en mi drive ***
